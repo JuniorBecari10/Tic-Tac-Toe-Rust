@@ -14,7 +14,7 @@ enum Player {
 }
 
 enum PerformResult {
-    Res(GameResult),
+    Ok(GameResult),
     InputOutOfBounds,
     PlaceTaken
 }
@@ -64,7 +64,7 @@ fn main() {
         };
 
         match perform(&mut table, &turn, pos) {
-            PerformResult::Res(res) => {
+            PerformResult::Ok(res) => {
                 winner = res.clone();
 
                 if let GameResult::None = res {
@@ -108,8 +108,7 @@ fn perform(table: &mut [TableElement; 9], player: &Player, pos: usize) -> Perfor
     }
 
     table[pos - 1] = player_to_element(player);
-    println!("{:?}", table);
-    PerformResult::Res(check_win(table))
+    PerformResult::Ok(check_win(table))
 }
 
 fn check_win(table: &[TableElement; 9]) -> GameResult {
